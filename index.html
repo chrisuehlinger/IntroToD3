@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>D3 TechTalk</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+		<link rel="stylesheet" href="css/d3talk.css">
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+        <style>
+            .reveal h2 {
+                -webkit-hyphens: none;
+                   -moz-hyphens: none;
+                        hyphens: none;
+                word-wrap:normal;
+            }
+            .reveal h3.subtitle {
+                margin-top: 30px;
+            }
+        </style>
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+                <section>
+                    <section>
+                        <h1>Intro to D3.js</h1>
+                        <h3>Chris Uehlinger</h3>
+                        <p><small>7/18/2015</small></p>
+                    </section>
+                    <section id="themes">
+                        <h2>Themes</h2>
+                        <p>
+                            Reveal.js comes with a few themes built in: <br>
+                            <a href="?#/themes">Default</a> -
+                            <a href="?theme=sky#/themes">Sky</a> -
+                            <a href="?theme=beige#/themes">Beige</a> -
+                            <a href="?theme=simple#/themes">Simple</a> -
+                            <a href="?theme=serif#/themes">Serif</a> -
+                            <a href="?theme=night#/themes">Night</a> <br>
+                            <a href="?theme=moon#/themes">Moon</a> -
+                            <a href="?theme=solarized#/themes">Solarized</a>
+                        </p>
+                        <p>
+                            <small>
+                                * Theme demos are loaded after the presentation which leads to flicker. In production you should load your theme in the <code>&lt;head&gt;</code> using a <code>&lt;link&gt;</code>.
+                            </small>
+                        </p>
+                    </section>
+                </section>
+                
+                <section>
+                    <h2>What is D3?</h2>
+                    <ul>
+                        <li class="fragment">An awesome Data Visualization tool</li>
+                        <li class="fragment">Built by Mike Bostock and the New York Times Graphics Department</li>
+                        <li class="fragment">jQuery with Data selectors</li>
+                        <li class="fragment">A tool for calculating layouts, which can be used to render: 
+                          <ul>
+                            <li class="fragment">HTML elements (&lt;div&gt;'s, &lt;span&gt;'s, &lt;ul&gt;'s, &lt;li&gt;'s)</li>
+                            <li class="fragment">SVG elements (&lt;g&gt;'s, &lt;circle&gt;'s, &lt;rect&gt;'s, &lt;text&gt;'s)</li>
+                            <li class="fragment">Canvas (using the browser's Canvas API)</li>
+                          </ul>
+                      </li>
+                    </ul>
+                </section>
+                
+                <section>
+                    <h2>How can I learn D3?</h2>
+                    <ul>
+                        <li class="fragment">Not just by watching this presentation...</li>
+                        <li class="fragment">This will be a 30,000 foot overview</li>
+                        <li class="fragment">Mike Bostock's Blocks: <a href="http://bl.ocks.org/mbostock">http://bl.ocks.org/mbostock</a></li>
+                        <li class="fragment">The D3 Wiki: <a href="https://github.com/mbostock/d3/wiki">https://github.com/mbostock/d3/wiki</a></li>
+                        <li class="fragment">Mike Bostock's tutorials: 
+                          <ul>
+                            <li class="fragment">Let's Make a Bar Chart: <a href="http://bost.ocks.org/mike/bar/">http://bost.ocks.org/mike/bar/</a></li>
+                            <li class="fragment">Let's Make a Map: <a href="http://bost.ocks.org/mike/map/">http://bost.ocks.org/mike/map/</a></li>
+                            <li class="fragment">Let's Make a Bubble Map: <a href="http://bost.ocks.org/mike/bubble-map/">http://bost.ocks.org/mike/bubble-map/</a></li>
+                          </ul>
+                        </li>
+                    </ul>
+                </section>
+                
+                <section>
+                    <h2>A Quick Overview</h2>
+                    <ul>
+                        <li class="fragment">SVG</li>
+                        <li class="fragment">Selectors</li>
+                        <li class="fragment">Data Joins</li>
+                        <li class="fragment">Scales</li>
+                        <li class="fragment">Layouts</li>
+                    </ul>
+                </section>
+                
+                <section>
+                  <h2>An SVG Primer</h2>
+                  <ul>
+                      <li>SVG stands for Scalable Vector Graphics</li>
+                      <li class="fragment">A text-based image format</li>
+                      <li class="fragment">Can be output by image editors (Adobe Illustrator, Inkskape, Sketch)</li>
+                      <li class="fragment">Can be edited by text editors (Notepad, Sublime Text, Visual Studio)</li>
+                      <li class="fragment">Basically HTML with shapes:
+                        <div class="codepen-embed">
+                          <p data-height="230" data-theme-id="0" data-slug-hash="waqZRK" data-default-tab="html" data-user="uehreka" class='codepen'>See the Pen <a href='http://codepen.io/uehreka/pen/waqZRK/'>waqZRK</a> by Chris Uehlinger (<a href='http://codepen.io/uehreka'>@uehreka</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
+  <script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+                        </div>
+                      </li>
+                  </ul>
+                </section>
+                
+                <section>
+                  <h2>D3 Selectors</h2>
+                  <div class="fragment">
+                    <p>Similar to jQuery Selectors:</p>
+                    <pre><code data-trim class="javascript">
+var jQuerySelection = $(".foo #bar div:first-child");
+
+// is equivalent to:
+var d3Selection = d3.selectAll(".foo #bar div:first-child");
+                    </code></pre>
+                  </div>
+                  <div class="fragment">
+                    <p>Many similar abilities:</p>
+                    <pre><code data-trim class="javascript">
+$(".foo").append("ul");
+d3.selectAll(".foo").append("ul");
+                    </code></pre>
+                  </div>
+                  <div class="fragment">
+                    <p>SVG is free out-of-the-box!</p>
+                    <pre><code data-trim class="javascript">
+$("svg.myPicture").append("circle");
+d3.selectAll("svg.myPicture").append("circle");
+                    </code></pre>
+                  </div>
+                </section>
+                
+                <section>
+                  <h2>Method Chaining</h2>
+                  <div class="fragment">
+                    <p>Get used to seeing things like this:</p>
+                    <pre><code data-trim class="javascript">
+d3.selectAll("svg.my-picture")
+  .append("g")
+    .attr("class", "circle-group")
+  .append("circle")
+    .attr("cx", 100)
+    .attr("y", 200)
+    .attr("r", 50);
+                    </code></pre>
+                  </div>
+                  <div class="fragment">
+                    <p>To create things like this:</p>
+                    <pre><code data-trim class="html">
+&lt;svg class="my-picture"&gt;
+  &lt;g class="circle-group"&gt;
+    &lt;circle cx="100" cy="200" r="50"&gt;&lt;/circle&gt;
+  &lt;/g&gt;
+&lt;/svg&gt;
+                    </code></pre>
+                  </div>
+                </section>
+              
+                <section>
+                  <h2>Got it?</h2>
+                  <div class="fragment">
+                    <p>Roll your own chained method:</p>
+                    <pre><code data-trim class="javascript">
+function foo(){
+  return {
+    bar:function(n){ 
+      return n+1;
+    }
+  };
+};
+                    </code></pre>
+                  </div>
+                  <div class="fragment">
+                    <p>And then use it like this:</p>
+                    <pre><code data-trim class="javascript">
+var baz = foo().bar(3);
+
+// -> 4
+console.log(baz);
+                    </code></pre>
+                  </div>
+                </section>
+                
+                <section>
+                    <h2>Keeping track of chained methods</h2>
+                    <div class="container">
+                      <div class="col">
+                        <p>Capture chains in variables:</p>
+                        <pre><code data-trim class="javascript">
+var group = d3.selectAll("svg.foo")
+              .append("g")
+                .attr("class", "bar");
+                        </code></pre>
+                      </div>
+                      <div class="col">
+                        <p>To build nested stuff:</p>
+                        <pre><code data-trim class="html">
+<svg class="foo">
+  <g class="bar"></g>
+</svg>
+                        </code></pre>
+                      </div>
+                    </div>
+                    <div class="container fragment">
+                      <div class="col">
+                        <pre><code data-trim class="javascript">
+group.append("circle")
+    .attr("cx", 100)
+    .attr("y", 200)
+    .attr("r", 50);
+                        </code></pre>
+                      </div>
+                      <div class="col">
+                        <pre><code data-trim class="html">
+<svg class="foo">
+  <g class="bar">
+    <circle cx="100" cy="200" r="50">
+    </circle>
+  </g>
+</svg>
+                        </code></pre>
+                      </div>
+                    </div>
+                    <div class="container fragment">
+                      <div class="col">
+                        <pre><code data-trim class="javascript">
+group.append("text")
+    .text("Hello World");
+                        </code></pre>
+                      </div>
+                      <div class="col">
+                        <pre><code data-trim class="html">
+<svg class="foo">
+  <g class="bar">
+    <circle cx="100" cy="200" r="50">
+    </circle>
+    <text>Hello World</text>
+  </g>
+</svg>
+                        </code></pre>
+                      </div>
+                    </div>
+                </section>
+                
+                <section>
+                    <h2>Data Joins</h2>
+                    <ul>
+                      <li class="fragment">Quite possibly the most confusing part of D3</li>
+                      <li class="fragment">Mike Bostock's <a href="http://bost.ocks.org/mike/join/">Thinking With Joins</a> article
+                        <svg width="720" height="300" style="font-size:18px; background: #fff; margin-top: 20px;">
+                          <g transform="translate(0,158)">
+                            <g transform="translate(300)">
+                              <circle r="110" style="fill: rgb(49, 130, 189); fill-opacity: .2; stroke: black; stroke-width: 1.5px;"></circle>
+                              <text y="-120" dy=".35em" text-anchor="middle" style="font-weight: bold;">Data</text>
+                              <text x="-50" dy=".35em" text-anchor="middle">Enter</text>
+                            </g>
+                            <text x="360" dy=".35em" text-anchor="middle">Update</text>
+                            <g transform="translate(420)">
+                              <circle r="110" style="fill: rgb(230, 85, 13); fill-opacity: .2; stroke: black; stroke-width: 1.5px;"></circle>
+                              <text y="-120" dy=".35em" text-anchor="middle" style="font-weight: bold;">Elements</text>
+                              <text x="50" dy=".35em" text-anchor="middle">Exit</text>
+                            </g>
+                          </g>
+                        </svg>
+                      </li>
+                    </ul>
+                    
+                </section>
+                
+                <section>
+                    <h2>Data Selectors</h2>
+                    <div>
+                      <p>Here's some data:</p>
+                      <pre><code data-trim class="javascript">
+var data = [
+  {
+    xPos:120,
+    yPos:200
+  },
+  {
+    xPos:220,
+    yPos:100
+  },
+  {
+    xPos:150,
+    yPos:80
+  }
+];
+                      </code></pre>
+                    </div>
+                    <div class="fragment">
+                      <p>And here's our markup:</p>
+                      <pre><code data-trim class="html">
+<svg></svg>
+                      </code></pre>
+                    </div>
+                </section>
+                
+                <section>
+                    <h2>Not confusing at all</h2>
+                    <div>
+                      <p>Let's make a circle for each data point:</p>
+                      <pre><code data-trim class="javascript">
+svg.selectAll("circle")
+    .data(data)
+  .enter().append("circle")
+    .attr("cx", function(d) { return d.xPos; })
+    .attr("cy", function(d) { return d.yPos; })
+    .attr("r", 25);
+                      </code></pre>
+                    </div>
+                    <p class="fragment">Whoa there...</p>
+                </section>
+                
+                <section>
+                    <h2>The Enter Selector</h2>
+                    <div class="stretch">
+                      <div style="display:inline-block; width:40%">
+                        <p>Data</p>
+                        <pre><code data-trim contenteditable class="javascript">
+var data = [
+  {
+    xPos:120,
+    yPos:200
+  },
+  {
+    xPos:220,
+    yPos:100
+  },
+  {
+    xPos:150,
+    yPos:80
+  }
+];
+                        </code></pre>
+
+                      </div>
+                      <div style="display:inline-block; width:59%; vertical-align:top;">
+                        <p>D3 Code</p>
+                        <pre><code data-trim contenteditable class="javascript">
+svg.selectAll("circle")
+    .data(data)
+  .enter().append("circle")
+    .attr("cx", function(d) { return d.xPos; })
+    .attr("cy", function(d) { return d.yPos; })
+    .attr("r", 25);
+                        </code></pre>
+                      </div>
+                      <div>
+                        <p>Markup</p>
+                        <pre><code data-trim contenteditable class="html">
+<svg>
+
+</svg>
+                        </code></pre>
+                      </div>
+                    </div>
+                </section>
+                  
+                  <section>
+                    <h2>Enter, Update and Exit</h2>
+                    <div class="stretch">
+                      <div style="display:inline-block; width:40%">
+                        <p>Data</p>
+                        <pre><code data-trim contenteditable class="javascript">
+var data = [
+  {
+    xPos:120,
+    yPos:200
+  },
+  {
+    xPos:220,
+    yPos:100
+  },
+  {
+    xPos:150,
+    yPos:80
+  }
+];
+                        </code></pre>
+
+                      </div>
+                      <div style="display:inline-block; width:59%; vertical-align:top;">
+                        <p>D3 Code</p>
+                        <pre><code data-trim contenteditable class="javascript">
+var circle = svg.selectAll("circle")
+    .data(data);
+// Enter
+circle.enter()
+  .append("circle")
+    .attr("cx", function(d) { return d.xPos; })
+    .attr("cy", function(d) { return d.yPos; })
+    .attr("r", 25);
+// Update
+circle
+    .attr("cx", function(d) { return d.xPos; })
+    .attr("cy", function(d) { return d.yPos; })
+    .attr("r", 25);
+// Exit
+circle.exit()
+    .remove();
+                        </code></pre>
+                      </div>
+                      <div>
+                                                <p>Markup</p>
+                        <pre><code data-trim contenteditable class="html">
+<svg>
+    <circle cx="120" cy="200" r="25"></circle>
+    <circle cx="220" cy="100" r="25"></circle>
+    <circle cx="150" cy="80" r="25"></circle>
+</svg>
+                        </code></pre>
+                      </div>
+                    </div>
+                </section>
+                
+                <section>
+                    <h2>Scales</h2>
+                    <ul>
+                        <li class="fragment"></li>
+                    </ul>
+                </section>
+                
+                <section>
+                    <h2>Layouts</h2>
+                    <ul>
+                        <li class="fragment"></li>
+                    </ul>
+                </section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
