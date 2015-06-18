@@ -1,7 +1,6 @@
 What is D3?
 ===========
 
-
 How can I learn D3?
 ===================
 
@@ -10,6 +9,12 @@ A Quick Overview
 
 An SVG Primer
 =============
+
+An SVG Example
+==============
+
+CodePen source: http://codepen.io/uehreka/pen/waqZRK
+
 
 D3 Selectors
 ============
@@ -20,7 +25,8 @@ Method Chaining
 Got it?
 =======
 
-**TODO**: This may need a little work
+**TODO**: This may need a little work. The example is a bit complicated and relies on a solid understanding of closures.
+**TODO**: May want to write a few vertical slides in case we need more review
 
 Keeping Track of Chained Methods
 ================================
@@ -64,6 +70,8 @@ Repeat again for changing an existing data point, to show that updates won't hap
 
 Repeat again for removing a data point, to show that exits won't happen.
 
+Repeat again with appending `<rect>` elements, to show that the function won't be idempotent.
+
 Enter, Update and Exit
 ======================
 
@@ -82,7 +90,20 @@ Add the new data point, and change 1 existing data point'
 Scales
 ======
 
-**TODO**: Write about Scales as transparent functions
+
+Color Scales
+============
+
+CodePen Example: http://codepen.io/uehreka/pen/ZGXOQP?editors=001
+
+- Show the black to white color scale
+- Replace the hex values with the rgb strings for red and blue
+- Replace those with "red" and "blue"
+- Replace those with the rainbow
+
+
+Other Scale Topics
+==================
 
 
 Layouts
@@ -90,3 +111,12 @@ Layouts
 
 **TODO**: Write about Layouts as media agnostic calculations
 
+- Canvas + SVG Force Layout http://bl.ocks.org/sxv/4485778
+- SVG Globe http://bl.ocks.org/mbostock/3795040
+- Canvas Globe (Floating Landmasses) http://bl.ocks.org/mbostock/6738360
+- Canvas Globe (Zooming and Panning) http://www.jasondavies.com/maps/zoom/
+
+Let's Make a Bar Chart
+======================
+
+**TODO**: Walk through Bostock's tutorial

@@ -131,13 +131,16 @@
                       <li class="fragment">A text-based image format</li>
                       <li class="fragment">Can be output by image editors (Adobe Illustrator, Inkskape, Sketch)</li>
                       <li class="fragment">Can be edited by text editors (Notepad, Sublime Text, Visual Studio)</li>
-                      <li class="fragment">Basically HTML with shapes:
-                        <div class="codepen-embed">
-                          <p data-height="230" data-theme-id="0" data-slug-hash="waqZRK" data-default-tab="html" data-user="uehreka" class='codepen'>See the Pen <a href='http://codepen.io/uehreka/pen/waqZRK/'>waqZRK</a> by Chris Uehlinger (<a href='http://codepen.io/uehreka'>@uehreka</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
-  <script async src="//assets.codepen.io/assets/embed/ei.js"></script>
-                        </div>
-                      </li>
                   </ul>
+                </section>
+                
+                <section>
+                  <h2>An SVG Example</h2>
+                  <p>SVG is basically HTML with shapes:</p>
+                  <div class="codepen-embed">
+                      <p data-height="260" data-theme-id="0" data-slug-hash="waqZRK" data-default-tab="html" data-user="uehreka" class='codepen'>See the Pen <a href='http://codepen.io/uehreka/pen/waqZRK/'>waqZRK</a> by Chris Uehlinger (<a href='http://codepen.io/uehreka'>@uehreka</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+                  </div>
                 </section>
                 
                 <section>
@@ -398,7 +401,6 @@ svg.selectAll("circle")
                     <h2>Enter, Update and Exit</h2>
                     <div class="stretch">
                       <div style="display:inline-block; width:40%">
-                        <p>Data</p>
                         <pre><code data-trim contenteditable class="javascript">
 var data = [
   {
@@ -418,7 +420,6 @@ var data = [
 
                       </div>
                       <div style="display:inline-block; width:59%; vertical-align:top;">
-                        <p>D3 Code</p>
                         <pre><code data-trim contenteditable class="javascript">
 var circle = svg.selectAll("circle")
     .data(data);
@@ -439,7 +440,6 @@ circle.exit()
                         </code></pre>
                       </div>
                       <div>
-                                                <p>Markup</p>
                         <pre><code data-trim contenteditable class="html">
 <svg>
     <circle cx="120" cy="200" r="25"></circle>
@@ -453,16 +453,48 @@ circle.exit()
                 
                 <section>
                     <h2>Scales</h2>
-                    <ul>
-                        <li class="fragment"></li>
-                    </ul>
+                    <p class="fragment">Scales are functions that map from an input domain to an output range. That's it.</p>
+                    <pre class="fragment"><code data-trim contenteditable class="javascript">
+var myScale = d3.scale.linear()
+                .domain([0, 100]) // Takes in a number from 1 to 100
+                .range([0, 1]);   // Outputs a number between 0 and 1
+                
+myScale(50)  // -> 0.5
+myScale(22)  // -> 0.22
+myScale(101) // -> 1.01
+                        </code></pre>
                 </section>
                 
                 <section>
-                    <h2>Layouts</h2>
-                    <ul>
-                        <li class="fragment"></li>
-                    </ul>
+                    <h2>Color Scales</h2>
+                    <p>D3 handles colors really well out of the box.</p>
+                    <pre><code data-trim contenteditable class="javascript">
+var color = d3.scale.linear()
+              .domain([0, 100])         // Takes in a number from 1 to 100
+              .range(["#000", "#fff"]); // Outputs a color from black to white
+                
+color(0)    // -> "#000" (black)
+color(100)  // -> "#fff" (white)
+color(50)   // -> "#808080" (medium gray)
+                        </code></pre>
+                  
+                  <p><a href="http://codepen.io/uehreka/pen/ZGXOQP?editors=001" target="_blank">Here's a CodePen</a> that demonstrates color scales.</p>
+                </section>
+                
+                <section>
+                  <h2>Other Scales</h2>
+                  <ul>
+                    <li class="fragment">Qualitative Scales for fluid ranges</li>
+                    <li class="fragment">Ordinal Scales for discrete numbers</li>
+                    <li class="fragment">Time Scales for dealing with the complex nature of time</li>
+                  </ul>
+                </section>
+                
+                <section>
+                  <h2>Layouts</h2>
+                  <ul>
+                    <li class="fragment"></li>
+                  </ul>
                 </section>
 
 			</div>
