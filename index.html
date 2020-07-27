@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title>D3 TechTalk</title>
+		<title>Introduction to D3</title>
 
 		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
 		<meta name="author" content="Hakim El Hattab">
@@ -57,7 +57,6 @@
                     <section>
                         <h1>Intro to D3.js</h1>
                         <h3>Chris Uehlinger</h3>
-                        <p><small>7/18/2015</small></p>
                     </section>
                     <section id="themes">
                         <h2>Themes</h2>
@@ -78,6 +77,15 @@
                             </small>
                         </p>
                     </section>
+                </section>
+                <section>
+                  <video autoplay>
+                    <source src="video/showreel.mp4" type="video/mp4"></source>
+                  </video>
+                  <aside class="notes" data-markdown>
+                    <script type="text/template">
+                    </script>
+                  </aside>
                 </section>
                 
                 <section>
@@ -398,10 +406,11 @@ svg.selectAll("circle")
                 </section>
                   
                   <section>
+                    <section>
                     <h2>Enter, Update and Exit</h2>
-                    <div class="stretch">
-                      <div style="display:inline-block; width:40%">
-                        <pre><code data-trim contenteditable class="javascript">
+                      <div class="stretch">
+                        <div style="display:inline-block; width:40%">
+                          <pre><code data-trim contenteditable class="javascript">
 var data = [
   {
     xPos:120,
@@ -418,9 +427,9 @@ var data = [
 ];
                         </code></pre>
 
-                      </div>
-                      <div style="display:inline-block; width:59%; vertical-align:top;">
-                        <pre><code data-trim contenteditable class="javascript">
+                        </div>
+                        <div style="display:inline-block; width:59%; vertical-align:top;">
+                          <pre><code data-trim contenteditable class="javascript">
 var circle = svg.selectAll("circle")
     .data(data);
 // Enter
@@ -449,12 +458,22 @@ circle.exit()
                         </code></pre>
                       </div>
                     </div>
+                  </section>
+                    
+                  <section>
+                    <h2>Data Joins Demos</h2>
+                    <ul>
+                      <li><a href="http://codepen.io/uehreka/pen/rVzgmr">Enter, Update and Exit</a></li>
+                      <li><a href="http://codepen.io/uehreka/pen/WvEByX">Data Joins with Animations</a></li>
+                    </ul>
+                  </section>
                 </section>
                 
                 <section>
-                    <h2>Scales</h2>
-                    <p class="fragment">Scales are functions that map from an input domain to an output range. That's it.</p>
-                    <pre class="fragment"><code data-trim contenteditable class="javascript">
+                  <h2>Scales</h2>
+                  <div class="fragment">
+                    <p>Scales are functions that map from an input domain to an output range. That's it.</p>
+                    <pre><code data-trim contenteditable class="javascript">
 var myScale = d3.scale.linear()
                 .domain([0, 100]) // Takes in a number from 1 to 100
                 .range([0, 1]);   // Outputs a number between 0 and 1
@@ -463,6 +482,7 @@ myScale(50)  // -> 0.5
 myScale(22)  // -> 0.22
 myScale(101) // -> 1.01
                         </code></pre>
+                  </div>
                 </section>
                 
                 <section>
@@ -482,7 +502,7 @@ color(50)   // -> "#808080" (medium gray)
                 </section>
                 
                 <section>
-                  <h2>Other Scales</h2>
+                  <h2>Types of Scales</h2>
                   <ul>
                     <li class="fragment">Qualitative Scales for fluid ranges</li>
                     <li class="fragment">Ordinal Scales for discrete numbers</li>
@@ -491,9 +511,85 @@ color(50)   // -> "#808080" (medium gray)
                 </section>
                 
                 <section>
+                  <h2>Let's Make a Bar Chart</h2>
+                  <p>We now have all the tools we need to make a basic bar chart!</p>
+                </section>
+                
+                <section>
                   <h2>Layouts</h2>
                   <ul>
-                    <li class="fragment"></li>
+                    <li class="fragment">Layouts are D3's way of calculating positions of certain elements</li>
+                    <li class="fragment">They are medium-agnostic: They take in data and output positions and sizes.</li>
+                  </ul>
+                </section>
+                
+                <section>
+                  <h2>Pie Layout</h2>
+                  <div class="container">
+                    <div class="col small">
+                      <p>Before</p>
+                      <pre><code data-trim contenteditable class="javascript">
+var data = [
+  {
+    id:1,
+    amount:10
+  },
+  {
+    id:2,
+    amount:20
+  },
+  {
+    id:3,
+    amount:10
+  }
+];
+                      </code></pre>
+                    </div>
+                    <div class="col large">
+                      <p>Layout</p>
+                      <pre><code data-trim contenteditable class="javascript">
+var pie = d3.layout.pie()
+  .value(function(d){ return d.amount; });
+            
+var layout = pie(data);
+                      </code></pre>
+                      <p>After</p>
+                      <pre><code data-trim contenteditable class="javascript">
+console.log(layout[0]);
+{
+  data: {
+    id:1,
+    amount:10
+  },
+  startAngle: 0,
+  endAngle: 1.5707963267948966, // π/2 or 90º
+  padAngle: 0
+  value: 10 // function(d){ return d.amount; }
+}
+                      </code></pre>
+                    </div>
+                  </div>
+                </section>
+                
+                <section>
+                  <h2>Types of Layouts</h2>
+                  <p></p>
+                  <ul>
+                    <li><a target="_blank" href="http://bl.ocks.org/mbostock/3048450">Histogram Layout</a></li>
+                    <li><a target="_blank" href="http://bl.ocks.org/mbostock/3887193">Pie Layout</a></li>
+                    <li><a target="_blank" href="http://bl.ocks.org/mbostock/1044242">Bundle Layout</a></li>
+                    <li><a target="_blank" href="http://bl.ocks.org/sxv/4485778">Force Layout</a></li>
+                  </ul>
+                </section>
+                
+                <section>
+                  <h2>Maps</h2>
+                  <p></p>
+                  <ul>
+                    <li><a target="_blank" href="http://bl.ocks.org/mbostock/3048450">Histogram Layout</a></li>
+                    <li><a target="_blank" href="http://bl.ocks.org/mbostock/3887193">Pie Layout</a></li>
+                    <li><a target="_blank" href="http://bl.ocks.org/mbostock/1044242">Bundle Layout</a></li>
+                    <li><a target="_blank" href="http://bl.ocks.org/sxv/4485778">Force Layout</a></li>
                   </ul>
                 </section>
 
@@ -513,6 +609,9 @@ color(50)   // -> "#808080" (medium gray)
 				progress: true,
 				history: true,
 				center: true,
+        
+        width: 960,
+        height: 700,
 
 				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
 				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none

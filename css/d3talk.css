@@ -15,6 +15,9 @@
   vertical-align: top;
   width: 50%;
 }
+.reveal .container .col.third {
+  width: 30%;
+}
 .reveal .container .col.small {
   width: 40%;
 }

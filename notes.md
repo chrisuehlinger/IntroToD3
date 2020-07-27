@@ -109,7 +109,14 @@ Other Scale Topics
 Layouts
 =======
 
-**TODO**: Write about Layouts as media agnostic calculations
+
+
+Pie Layout
+==========
+
+
+SVG vs Canvas
+=============
 
 - Canvas + SVG Force Layout http://bl.ocks.org/sxv/4485778
 - SVG Globe http://bl.ocks.org/mbostock/3795040
